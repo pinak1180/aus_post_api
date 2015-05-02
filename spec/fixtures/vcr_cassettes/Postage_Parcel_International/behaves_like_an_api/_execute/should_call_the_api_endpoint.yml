@@ -1,0 +1,56 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://auspost.com.au/api/postage/parcel/international/service.json?country_code=NZ&weight=10
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Host:
+      - auspost.com.au
+      Auth-Key:
+      - cd4fcd93-6230-44cb-98ff-3294e281e968
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Cache-Control:
+      - no-cache="set-cookie"
+      Content-Type:
+      - application/json
+      Date:
+      - Sat, 02 May 2015 23:39:59 GMT
+      Server:
+      - nginx
+      Set-Cookie:
+      - AWSELB=0753419F16CFAA9CC51173A905C22325CE89657604CC6222827799710D93516EDAEB98FDD4135DF557C155F443A637280C8524449B5FF0F1D98C5B776AE9912F39198A25E9;PATH=/
+      Vary:
+      - Accept-Encoding
+      Content-Length:
+      - '326'
+      Connection:
+      - keep-alive
+    body:
+      encoding: UTF-8
+      string: '{"services":{"service":[{"code":"INTL_SERVICE_ECI_PLATINUM","name":"Express
+        Courier International Platinum","price":"202.80","max_extra_cover":5000,"options":{"option":{"code":"INTL_SERVICE_OPTION_EXTRA_COVER","name":"Extra
+        Cover"}}},{"code":"INTL_SERVICE_ECI_M","name":"Express Courier International
+        Merchandise","price":139.85,"max_extra_cover":5000,"options":{"option":[{"code":"INTL_SERVICE_OPTION_PICKUP_METRO","name":"Pick
+        Up (Metro Only)"},{"code":"INTL_SERVICE_OPTION_EXTRA_COVER","name":"Extra
+        Cover"}]}},{"code":"INTL_SERVICE_ECI_D","name":"Express Courier International
+        Documents","price":132.45,"max_extra_cover":5000,"options":{"option":[{"code":"INTL_SERVICE_OPTION_PICKUP_METRO","name":"Pick
+        Up (Metro Only)"},{"code":"INTL_SERVICE_OPTION_EXTRA_COVER","name":"Extra
+        Cover"}]}},{"code":"INTL_SERVICE_EPI","name":"Express Post International","price":121.25,"max_extra_cover":5000,"options":{"option":{"code":"INTL_SERVICE_OPTION_EXTRA_COVER","name":"Extra
+        Cover"}}},{"code":"INTL_SERVICE_AIR_MAIL","name":"Air Mail","price":114.25,"max_extra_cover":1708,"options":{"option":{"code":"INTL_SERVICE_OPTION_EXTRA_COVER","name":"Extra
+        Cover"}}}]}}'
+    http_version: 
+  recorded_at: Sat, 02 May 2015 23:39:59 GMT
+recorded_with: VCR 2.9.3
