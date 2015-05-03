@@ -14,4 +14,8 @@ class AusPost
   def postage_parcel_international_service(params)
     Postage::Parcel::International::Service.new(params, config).execute
   end
+
+  def postage_parcel_international_calculate(params)
+    Postage::Parcel::International::Calculate.new(params, config).execute
+  end
 end

@@ -1,6 +1,12 @@
 require 'net/http'
 
 module API
+  def self.included(base)
+    base.const_set('ATTRS', base::REQUIRED_ATTRS + base::OPTIONAL_ATTRS)
+
+    attr_accessor(*(base::ATTRS))
+  end
+
   def initialize(attributes, config)
     @config = config
 
@@ -51,7 +57,7 @@ module API
   def params
     result = []
 
-    (self.class::REQUIRED_ATTRS + self.class::OPTIONAL_ATTRS).each do |attr|
+    self.class::ATTRS.each do |attr|
       result << "#{attr}=#{self.send(attr)}"
     end
 
