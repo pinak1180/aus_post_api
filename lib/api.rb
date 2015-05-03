@@ -6,8 +6,14 @@ module API
 
     required_param = -> (attr) { raise ::API::RequiredArgumentError.new(attr) }
 
-    self.class::ATTRS.each do |attr|
+    self.class::REQUIRED_ATTRS.each do |attr|
       self.send("#{attr}=", attributes.fetch(attr, &required_param))
+    end
+
+    self.class::OPTIONAL_ATTRS.each do |attr|
+      if attributes.has_key?(attr)
+        self.send("#{attr}=", attributes.fetch(attr))
+      end
     end
   end
 
@@ -45,7 +51,7 @@ module API
   def params
     result = []
 
-    self.class::ATTRS.each do |attr|
+    (self.class::REQUIRED_ATTRS + self.class::OPTIONAL_ATTRS).each do |attr|
       result << "#{attr}=#{self.send(attr)}"
     end
 

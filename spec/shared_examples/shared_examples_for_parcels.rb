@@ -1,6 +1,8 @@
 RSpec.shared_examples 'an api' do
   subject { described_class }
 
+  let(:attributes) { required_attributes.merge(optional_attributes) }
+
   describe "#api_uri" do
     context "the specified format is json" do
       it "should return the json api uri" do
@@ -25,13 +27,24 @@ RSpec.shared_examples 'an api' do
     end
   end
 
-  context "required attributes are not provided" do
-    described_class::ATTRS.each do |attr|
-      it "should raise a required argument error if #{attr} is not given" do
-        attributes.delete(attr)
-        expect { subject.new(attributes, config) }.to raise_error(
-          API::RequiredArgumentError
-        )
+  describe "Initializing the class" do
+    context "required attributes" do
+      described_class::REQUIRED_ATTRS.each do |attr|
+        it "should raise a required argument error if #{attr} is not given" do
+          attributes.delete(attr)
+          expect { subject.new(attributes, config) }.to raise_error(
+            API::RequiredArgumentError
+          )
+        end
+      end
+    end
+
+    context "optional attributes" do
+      described_class::OPTIONAL_ATTRS.each do |attr|
+        it "should not raise a required argument error if #{attr} is not given" do
+          optional_attributes.delete(attr)
+          expect { subject.new(attributes, config) }.to_not raise_error
+        end
       end
     end
   end

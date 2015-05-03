@@ -1,7 +1,7 @@
 require 'spec_helper'
 
-describe Postage::Parcel::Domestic do
-  let(:attributes) do
+describe Postage::Parcel::Domestic::Service do
+  let(:required_attributes) do
     {
       from_postcode: '2000',
       to_postcode:   '3000',
@@ -11,7 +11,8 @@ describe Postage::Parcel::Domestic do
       weight:        '10'
     }
   end
-  let(:api_uri) { "postage/parcel/domestic/service" }
+  let(:optional_attributes) { {} }
+  let(:api_uri)             { "postage/parcel/domestic/service" }
 
   it_behaves_like 'an api'
 end
