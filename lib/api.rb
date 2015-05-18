@@ -8,7 +8,8 @@ module API
   end
 
   def initialize(attributes, config)
-    @config = config
+    @config     = config
+    @attributes = attributes
 
     required_param = -> (attr) { raise ::API::RequiredArgumentError.new(attr) }
 
@@ -57,7 +58,7 @@ module API
   def params
     result = []
 
-    self.class::ATTRS.each do |attr|
+    @attributes.keys.each do |attr|
       result << "#{attr}=#{self.send(attr)}"
     end
 
