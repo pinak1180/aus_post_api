@@ -5,17 +5,16 @@ describe Postage::Parcel::International::Calculate do
     {
       country_code:  'NZ',
       weight:        '10',
-      service_code:  'AUS_PARCEL_REGULAR'
+      service_code:  'INTL_SERVICE_EPI'
     }
   end
+
+  # TODO: find valid optional attributes
   let(:optional_attributes) do
-    {
-      option_code:    'AUS_SERVICE_OPTION_SIGNATURE_ON_DELIVERY',
-      suboption_code: 'AUS_SERVICE_OPTION_EXTRA_COVER',
-      extra_cover:    100
-    }
+    {}
   end
   let(:api_uri) { "postage/parcel/international/calculate" }
 
   it_behaves_like 'an api'
+  it_behaves_like 'a shipping calculator api'
 end

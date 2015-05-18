@@ -25,7 +25,11 @@ module API
   end
 
   def execute
-    http.request(request)
+    response = http.request(request)
+
+    handle_errors(response)
+
+    response
   end
 
   def api_uri
@@ -37,6 +41,40 @@ module API
   end
 
   private
+
+  def handle_errors(response)
+    if error_returned?(response)
+      message = error_message(response)
+
+      case message
+      when /\A.*Service code.*\z/
+        raise InvalidServiceCodeError.new(message)
+      when /\A.*cannot exceed.*\z/
+        raise InvalidDimensionError.new(message)
+      when /\A.*maximum weight.*\z/
+        raise InvalidWeightError.new(message)
+      end
+    end
+  end
+
+  def error_returned?(response)
+    if format == 'json'
+      json = JSON.parse(response.body)
+      json["error"]
+    elsif format == 'xml'
+      # not implemented
+    end
+  end
+
+  def error_message(response)
+    return unless error_returned?(response)
+
+    if format == 'json'
+      JSON.parse(response.body)["error"]["errorMessage"]
+    elsif format == 'xml'
+      # not implemented
+    end
+  end
 
   def http
     @http ||= Net::HTTP.new(uri.host, uri.port).tap do |h|
@@ -68,6 +106,24 @@ module API
   class RequiredArgumentError < StandardError
     def initialize(attr)
       super("#{attr} is a required argument")
+    end
+  end
+
+  class InvalidServiceCodeError < StandardError
+    def initialize(message)
+      super(message)
+    end
+  end
+
+  class InvalidDimensionError < StandardError
+    def initialize(message)
+      super(message)
+    end
+  end
+
+  class InvalidWeightError < StandardError
+    def initialize(message)
+      super(message)
     end
   end
 end

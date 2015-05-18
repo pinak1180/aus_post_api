@@ -1,4 +1,5 @@
 require 'vcr'
+require 'json'
 
 Dir[(File.dirname(__dir__)) + "/lib/**/*.rb"].each { |f| require f }
 Dir[(File.dirname(__dir__)) + "/spec/shared_examples/**/*.rb"].each { |f| require f}
@@ -8,6 +9,9 @@ VCR.configure do |config|
   config.hook_into :webmock
   config.configure_rspec_metadata!
 end
+
+MAX_WEIGHT    = 22
+MAX_DIMENSION = 105
 
 def config
   {

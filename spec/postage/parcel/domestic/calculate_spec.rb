@@ -22,4 +22,6 @@ describe Postage::Parcel::Domestic::Calculate do
   let(:api_uri) { "postage/parcel/domestic/calculate" }
 
   it_behaves_like 'an api'
+  it_behaves_like 'a domestic parcel api'
+  it_behaves_like 'a shipping calculator api'
 end

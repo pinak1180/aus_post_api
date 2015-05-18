@@ -15,4 +15,5 @@ describe Postage::Parcel::Domestic::Service do
   let(:api_uri)             { "postage/parcel/domestic/service" }
 
   it_behaves_like 'an api'
+  it_behaves_like 'a domestic parcel api'
 end
