@@ -9,5 +9,5 @@ Gem::Specification.new do |gem|
   gem.test_files    = `git ls-files -- spec/*`.split("\n")
   gem.name          = "aus_post"
   gem.require_paths = ["lib"]
-  gem.version       = '1.0.0'
+  gem.version       = '1.0.1'
 end
