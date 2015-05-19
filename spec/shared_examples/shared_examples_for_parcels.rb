@@ -39,6 +39,8 @@ RSpec.shared_examples 'an api' do
         subject.new(invalid_weight_attributes, json_config).execute
       }.to raise_error(API::InvalidWeightError)
     end
+
+    it "should raise a generic error if the request returns an error that isn't handled"
   end
 
   describe "Initializing the class" do

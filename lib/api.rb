@@ -53,6 +53,8 @@ module API
         raise InvalidDimensionError.new(message)
       when /\A.*maximum weight.*\z/
         raise InvalidWeightError.new(message)
+      else
+        raise RequestInvalidError.new(message)
       end
     end
   end
@@ -122,6 +124,12 @@ module API
   end
 
   class InvalidWeightError < StandardError
+    def initialize(message)
+      super(message)
+    end
+  end
+
+  class RequestInvalidError < StandardError
     def initialize(message)
       super(message)
     end
