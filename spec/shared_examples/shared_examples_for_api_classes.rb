@@ -3,10 +3,6 @@ RSpec.shared_examples 'an api' do
 
   let(:attributes) { required_attributes.merge(optional_attributes) }
 
-  let(:invalid_weight_attributes) do
-    attributes.merge(optional_attributes).merge(weight: "#{MAX_WEIGHT + 1}")
-  end
-
   describe "#api_uri" do
     context "the specified format is json" do
       it "should return the json api uri" do
@@ -31,16 +27,6 @@ RSpec.shared_examples 'an api' do
       expect(response).to_not      eql(nil)
       expect(response["error"]).to eql(nil)
     end
-  end
-
-  describe "attribute validations", :vcr do
-    it "should raise an error if the weight is too big" do
-      expect {
-        subject.new(invalid_weight_attributes, json_config).execute
-      }.to raise_error(API::InvalidWeightError)
-    end
-
-    it "should raise a generic error if the request returns an error that isn't handled"
   end
 
   describe "Initializing the class" do

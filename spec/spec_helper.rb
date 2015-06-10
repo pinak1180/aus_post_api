@@ -10,11 +10,14 @@ VCR.configure do |config|
   config.configure_rspec_metadata!
 end
 
-MAX_WEIGHT    = 22
-MAX_DIMENSION = 105
-
 def config
   {
+    # this is the live endpoint. The test AusPost endpoint doesn't work
+    #
+    # Test keys for when endpoint is working
+    #    base_uri: 'https://test.npe.auspost.com.au',
+    #    auth_key: '28744ed5982391881611cca6cf5c240',
+    #
     base_uri: 'https://auspost.com.au/api',
     auth_key: 'cd4fcd93-6230-44cb-98ff-3294e281e968'
   }
@@ -28,5 +31,3 @@ def xml_config
   config.merge(format: 'xml')
 end
 
-#    base_uri: 'https://test.npe.auspost.com.au',
-#    auth_key: '28744ed5982391881611cca6cf5c240',

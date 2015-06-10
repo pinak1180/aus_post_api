@@ -16,5 +16,4 @@ describe Postage::Parcel::International::Calculate do
   let(:api_uri) { "postage/parcel/international/calculate" }
 
   it_behaves_like 'an api'
-  it_behaves_like 'a shipping calculator api'
 end
