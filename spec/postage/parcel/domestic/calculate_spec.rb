@@ -19,7 +19,7 @@ describe Postage::Parcel::Domestic::Calculate do
       extra_cover:    100
     }
   end
-  let(:api_uri) { "postage/parcel/domestic/calculate" }
+  let(:lol_uri) { "postage/parcel/domestic/calculate" }
 
   it_behaves_like 'an api'
 end

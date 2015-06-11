@@ -9,10 +9,6 @@ module Postage
         OPTIONAL_ATTRS = [:option_code, :suboption_code, :extra_cover]
 
         include ::API
-
-        def api_uri
-          "postage/parcel/domestic/calculate.#{format}"
-        end
       end
     end
   end

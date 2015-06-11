@@ -3,24 +3,6 @@ RSpec.shared_examples 'an api' do
 
   let(:attributes) { required_attributes.merge(optional_attributes) }
 
-  describe "#api_uri" do
-    context "the specified format is json" do
-      it "should return the json api uri" do
-        expect(subject.new(attributes, json_config).api_uri).to eql(
-          api_uri + ".json"
-        )
-      end
-    end
-
-    context "the specified format is xml" do
-      it "should return the xml api uri" do
-        expect(subject.new(attributes, xml_config).api_uri).to eql(
-          api_uri + ".xml"
-        )
-      end
-    end
-  end
-
   describe "#execute", :vcr do
     it "should call the api endpoint" do
       response = JSON.parse(subject.new(attributes, json_config).execute.body)

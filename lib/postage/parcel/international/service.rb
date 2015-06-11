@@ -6,10 +6,6 @@ module Postage
         OPTIONAL_ATTRS = []
 
         include ::API
-
-        def api_uri
-          "postage/parcel/international/service.#{format}"
-        end
       end
     end
   end

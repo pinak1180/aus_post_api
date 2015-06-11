@@ -12,7 +12,7 @@ describe Postage::Parcel::Domestic::Service do
     }
   end
   let(:optional_attributes) { {} }
-  let(:api_uri)             { "postage/parcel/domestic/service" }
+  let(:uri)                 { "postage/parcel/domestic/service" }
 
   it_behaves_like 'an api'
 end

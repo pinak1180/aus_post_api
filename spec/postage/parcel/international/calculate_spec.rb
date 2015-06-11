@@ -10,10 +10,8 @@ describe Postage::Parcel::International::Calculate do
   end
 
   # TODO: find valid optional attributes
-  let(:optional_attributes) do
-    {}
-  end
-  let(:api_uri) { "postage/parcel/international/calculate" }
+  let(:optional_attributes) {}
+  let(:uri)                 { "postage/parcel/international/calculate" }
 
   it_behaves_like 'an api'
 end
