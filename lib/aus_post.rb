@@ -1,8 +1,18 @@
 Dir[(File.dirname(__dir__)) + "/lib/**/*.rb"].each { |f| require f }
 
+# The AusPost class is the main entry point to the gem. It takes a config hash
+# that must specify an valid auth key, and request format. Setting the test key
+# to true in the config hash will ignore any supplied auth_key and use the test
+# endpoint.
+#
+# The method interface serves as documentation for the implemented endpoints.
 class AusPost
+  VALID_FORMATS = [:json, :xml]
+
   def initialize(config)
     @config = config
+
+    validate_config
   end
 
   def postage_parcel_domestic_service(params)
@@ -20,4 +30,30 @@ class AusPost
   def postage_parcel_international_calculate(params)
     Postage::Parcel::International::Calculate.new(params, @config).execute
   end
+
+  private
+
+  def validate_config
+    if @config[:auth_key].nil? && !@config[:test]
+      raise NoAuthKeyProvidedError
+    end
+
+    if @config[:format].nil?
+      raise NoFormatProvidedError
+    else
+      if !VALID_FORMATS.include?@config[:format]
+        raise InvalidFormatError
+      end
+    end
+  end
+
+  class NoAuthKeyProvidedError < StandardError; end
+
+  class InvalidFormatError < StandardError
+    def initialize
+      super("Accepted formats are: #{AusPost::VALID_FORMATS.join(', ')}")
+    end
+  end
+
+  class NoFormatProvidedError < InvalidFormatError; end
 end

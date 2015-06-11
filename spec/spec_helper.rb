@@ -12,13 +12,9 @@ end
 
 def config
   {
-    # this is the live endpoint. The test AusPost endpoint doesn't work
-    #
-    # Test keys for when endpoint is working
-    #    base_uri: 'https://test.npe.auspost.com.au',
-    #    auth_key: '28744ed5982391881611cca6cf5c240',
-    #
-    base_uri: 'https://auspost.com.au/api',
+    # setting test to false uses the live endpoint. The test AusPost endpoint
+    # doesn't work...
+    test:     false,
     auth_key: 'cd4fcd93-6230-44cb-98ff-3294e281e968'
   }
 end
