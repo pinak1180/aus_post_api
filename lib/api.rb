@@ -1,4 +1,6 @@
 module API
+  BASE_URI = 'https://auspost.com.au/api'
+
   def self.included(base)
     attr_accessor *(base::REQUIRED_ATTRS + base::OPTIONAL_ATTRS)
   end
@@ -11,7 +13,7 @@ module API
   end
 
   def execute
-    UriHandler.call(uri, headers).tap { |response| handle_errors(response) }
+    UriHandler.call(uri, headers)
   end
 
   private
@@ -29,22 +31,11 @@ module API
   end
 
   def uri
-    "#{base_uri}/#{api_uri}.#{format}?#{params}"
+    "#{@config[:base_uri] || BASE_URI}/#{api_uri}.#{@config[:format]}?#{params}"
   end
 
   def headers
     { "AUTH-KEY" => @config[:auth_key] }
-  end
-
-  def handle_errors(response)
-    if error_returned?(response)
-      raise RequestInvalidError.new(error_message(response))
-    end
-  end
-
-  def base_uri
-    # TODO: set this as a default somewhere
-    @config[:base_uri]
   end
 
   def api_uri
@@ -57,37 +48,9 @@ module API
     }.join('&')
   end
 
-  def format
-    @config[:format]
-  end
-
-  def error_returned?(response)
-    if format == 'json'
-      !!JSON.parse(response.body)["error"]
-    elsif format == 'xml'
-      # not implemented
-    end
-  end
-
-  def error_message(response)
-    return unless error_returned?(response)
-
-    if format == 'json'
-      JSON.parse(response.body)["error"]["errorMessage"]
-    elsif format == 'xml'
-      # not implemented
-    end
-  end
-
   class RequiredArgumentError < StandardError
     def initialize(attr)
       super("#{attr} is a required argument")
-    end
-  end
-
-  class RequestInvalidError < StandardError
-    def initialize(message)
-      super(message)
     end
   end
 end
