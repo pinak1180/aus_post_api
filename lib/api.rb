@@ -14,6 +14,7 @@ module API
   LIVE_URI      = 'https://auspost.com.au/api'
   TEST_URI      = 'https://test.npe.auspost.com.au'
   TEST_AUTH_KEY = '28744ed5982391881611cca6cf5c240'
+  VALID_FORMATS = ['json', 'xml']
 
   def self.included(base)
     if !defined?(base::REQUIRED_ATTRS) || !defined?(base::OPTIONAL_ATTRS)
@@ -27,6 +28,8 @@ module API
     @config     = config
     @attributes = attributes
 
+    validate_config
+
     set_attributes
   end
 
@@ -35,6 +38,20 @@ module API
   end
 
   private
+
+  def validate_config
+    if @config[:auth_key].nil? && !@config[:test]
+      raise NoAuthKeyProvidedError
+    end
+
+    if @config[:format].nil?
+      raise NoFormatProvidedError
+    else
+      if !VALID_FORMATS.include?@config[:format]
+        raise InvalidFormatError
+      end
+    end
+  end
 
   def set_attributes
     required_param = -> (attr) { raise ::API::RequiredArgumentError.new(attr) }
@@ -57,7 +74,7 @@ module API
   end
 
   def headers
-    { "AUTH-KEY" => @config[:test] ? @config[:auth_key] : TEST_AUTH_KEY }
+    { "AUTH-KEY" => @config[:test] ? TEST_AUTH_KEY : @config[:auth_key] }
   end
 
   def api_uri
@@ -84,4 +101,14 @@ module API
       )
     end
   end
+
+  class NoAuthKeyProvidedError < StandardError; end
+
+  class InvalidFormatError < StandardError
+    def initialize
+      super("Accepted formats are: #{API::VALID_FORMATS.join(', ')}")
+    end
+  end
+
+  class NoFormatProvidedError < InvalidFormatError; end
 end

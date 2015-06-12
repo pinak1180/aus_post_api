@@ -11,11 +11,11 @@ VCR.configure do |config|
 end
 
 def config
+  # This uses a live endpoint. The key used is not used in any production
+  # environments. The test endpoint is broken...
   {
-    # setting test to false uses the live endpoint. The test AusPost endpoint
-    # doesn't work...
-    test:     false,
-    auth_key: 'cd4fcd93-6230-44cb-98ff-3294e281e968'
+    test: false,
+    auth_key: 'f9c917c2-33bf-468b-824a-6739702505f9'
   }
 end
 
