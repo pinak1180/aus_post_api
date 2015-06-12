@@ -9,7 +9,7 @@
 #    eg. if the required uri is '<base>/parcel/calculate' the class name must be
 #    `Parcel::Calculate` OR the class must override the `api_uri` method.
 #
-#    This maps the the naming convention used by the Australia Post API.
+#    This maps to the naming convention used by the Australia Post API.
 module API
   LIVE_URI      = 'https://auspost.com.au/api'
   TEST_URI      = 'https://test.npe.auspost.com.au'
