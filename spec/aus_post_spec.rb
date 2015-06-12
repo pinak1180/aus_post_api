@@ -15,6 +15,10 @@ RSpec.shared_examples_for "an api call" do |wrapped_api_class|
 end
 
 describe AusPost do
+  describe "#domestic_postcode_search" do
+    it_behaves_like 'an api call', Domestic::Postcode::Search
+  end
+
   describe "#postage_parcel_domestic_service" do
     it_behaves_like 'an api call', Postage::Parcel::Domestic::Service
   end

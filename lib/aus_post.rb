@@ -11,6 +11,10 @@ class AusPost
     @config = config
   end
 
+  def domestic_postcode_search(params)
+    Domestic::Postcode::Search.new(params, @config).execute
+  end
+
   def postage_parcel_domestic_service(params)
     Postage::Parcel::Domestic::Service.new(params, @config).execute
   end
