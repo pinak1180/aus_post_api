@@ -3,7 +3,7 @@ require 'net/http'
 # The UriHandler class is wrapper around a http technology. It takes a uri and
 # a hash of header key values pairs and makes a http request.
 class UriHandler
-  def self.call(uri, headers)
+  def self.call(uri, headers={})
     self.new(uri, headers).call
   end
 
