@@ -19,6 +19,10 @@ describe AusPost do
     it_behaves_like 'an api call', Domestic::Postcode::Search
   end
 
+  describe "#country" do
+    it_behaves_like 'an api call', Country
+  end
+
   describe "#postage_parcel_domestic_service" do
     it_behaves_like 'an api call', Postage::Parcel::Domestic::Service
   end
