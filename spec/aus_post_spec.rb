@@ -2,7 +2,7 @@ require 'spec_helper'
 
 RSpec.shared_examples_for "an api call" do |wrapped_api_class|
   let(:api_instance) { instance_double(wrapped_api_class) }
-  let(:api_method)   { wrapped_api_class.to_s.downcase.gsub(/::/, '_').to_sym }
+  let(:api_method)   { convert_class_to_method(wrapped_api_class) }
   let(:config)       { { test: true, format: API::VALID_FORMATS.sample } }
   let(:params)       { {} }
 
@@ -12,6 +12,10 @@ RSpec.shared_examples_for "an api call" do |wrapped_api_class|
 
     AusPost.new(config).send(api_method, params)
   end
+end
+
+def convert_class_to_method(klass)
+  klass.to_s.split(/(?=[A-Z])|::/).map(&:downcase).join('_').to_sym
 end
 
 describe AusPost do
