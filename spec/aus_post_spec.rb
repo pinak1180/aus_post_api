@@ -31,6 +31,14 @@ describe AusPost do
     it_behaves_like 'an api call', Domestic::Letter::Thickness
   end
 
+  describe "#domestic_letter_weight" do
+    it_behaves_like 'an api call', Domestic::Letter::Weight
+  end
+
+  describe "#domestic_letter_size" do
+    it_behaves_like 'an api call', Domestic::Letter::Size
+  end
+
   describe "#postage_parcel_domestic_service" do
     it_behaves_like 'an api call', Postage::Parcel::Domestic::Service
   end

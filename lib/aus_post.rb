@@ -23,6 +23,14 @@ class AusPost
     Domestic::Letter::Thickness.new(params, @config).execute
   end
 
+  def domestic_letter_weight(params)
+    Domestic::Letter::Weight.new(params, @config).execute
+  end
+
+  def domestic_letter_size(params)
+    Domestic::Letter::Size.new(params, @config).execute
+  end
+
   def postage_parcel_domestic_service(params)
     Postage::Parcel::Domestic::Service.new(params, @config).execute
   end
