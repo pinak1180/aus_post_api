@@ -11,7 +11,6 @@ RSpec.shared_examples 'an api' do
     end
   end
 
-
   describe "Attributes" do
     context "required" do
       described_class::REQUIRED_ATTRS.each do |attr|
