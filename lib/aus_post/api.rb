@@ -1,3 +1,5 @@
+require_relative './uri_handler'
+
 # The API module sets the parameters for an api call and constructs the uri.
 #
 # Any class that includes the module must specify two constants:
@@ -18,9 +20,10 @@ class AusPost
       attr_accessor *(base::REQUIRED_ATTRS + base::OPTIONAL_ATTRS)
     end
 
-    def initialize(attributes, config)
-      @config     = config
-      @attributes = attributes
+    def initialize(attributes, config, uri_handler = AusPost::UriHandler)
+      @config      = config
+      @attributes  = attributes
+      @uri_handler = uri_handler
 
       validate_config
 
@@ -28,7 +31,7 @@ class AusPost
     end
 
     def execute
-      AusPost::UriHandler.call(uri, headers)
+      @uri_handler.call(uri, headers)
     end
 
     private

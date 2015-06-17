@@ -2,29 +2,58 @@ require_relative '../../lib/aus_post/api'
 
 class NoOptionalAttrsConstSet; REQUIRED_ATTRS = []; end
 class NoRequiredAttrsConstSet; OPTIONAL_ATTRS = []; end
-class TestClass; REQUIRED_ATTRS = []; OPTIONAL_ATTRS = []; end
+class NoApiUriImplemeneted; REQUIRED_ATTRS = []; OPTIONAL_ATTRS = []; end
+
+class CorrectlyImplementedClass
+  REQUIRED_ATTRS = []
+  OPTIONAL_ATTRS = []
+
+  def api_uri
+  end
+end
+
+class NullUriHandler; def self.call(*attrs) end; end
 
 describe AusPost::API do
+  let(:valid_test_config) {
+    { test: true, format: AusPost::API::VALID_FORMATS.sample, auth_key: '123' }
+  }
+
   describe "Implementing an API class" do
-    it 'should define a REQUIRED_ATTRS const' do
-      expect {
-        NoRequiredAttrsConstSet.new.class.send(:include, AusPost::API)
-      }.to raise_error(AusPost::API::ImplementationError)
+    describe "Required Constants" do
+      it 'should define a REQUIRED_ATTRS const' do
+        expect {
+          NoRequiredAttrsConstSet.new.class.send(:include, AusPost::API)
+        }.to raise_error(AusPost::API::ImplementationError)
+      end
+
+      it 'should define a OPTIONAL_ATTRS const' do
+        expect {
+          NoOptionalAttrsConstSet.new.class.send(:include, AusPost::API)
+        }.to raise_error(AusPost::API::ImplementationError)
+      end
     end
 
-    it 'should define a OPTIONAL_ATTRS const' do
-      expect {
-        NoOptionalAttrsConstSet.new.class.send(:include, AusPost::API)
-      }.to raise_error(AusPost::API::ImplementationError)
+    describe "Implementing an api_uri method" do
+      subject { NoApiUriImplemeneted.include(AusPost::API) }
+
+      it "should raise an error if no api_uri is set" do
+        instance = subject.new({}, valid_test_config, NullUriHandler)
+
+        expect {
+          instance.execute
+        }.to raise_error(AusPost::API::ImplementationError)
+
+        def instance.api_uri; ""; end
+
+        expect { instance.execute }.to_not raise_error
+      end
     end
   end
 
-  describe "Configuring the API module" do
-    subject { TestClass.include(AusPost::API) }
 
-    let(:valid_test_config) {
-      { test: true, format: AusPost::API::VALID_FORMATS.sample, auth_key: '123' }
-    }
+  describe "Configuring the API module" do
+    subject { CorrectlyImplementedClass.include(AusPost::API) }
 
     describe "Setting an Auth Key" do
       context "the test configuration is set to true" do
