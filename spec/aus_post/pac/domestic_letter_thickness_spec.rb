@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Domestic::Letter::Weight do
+describe AusPost::PAC::DomesticLetterThickness do
   let(:required_attributes) { {} }
   let(:optional_attributes) { {} }
 

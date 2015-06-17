@@ -1,10 +1,10 @@
-module Domestic
-  module Postcode
-    class Search
+class AusPost
+  module PAC
+    class DomesticPostcodeSearch
       REQUIRED_ATTRS = [:q]
       OPTIONAL_ATTRS = [:state, :excludepostboxflag]
 
-      include ::API
+      include AusPost::API
 
       def api_uri
         "postcode/search"

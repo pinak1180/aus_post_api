@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Postage::Parcel::International::Service do
+describe AusPost::PAC::PostageParcelInternationalService do
   let(:required_attributes) { { country_code: 'NZ', weight: '10' } }
   let(:optional_attributes) { {} }
 

@@ -1,29 +1,29 @@
-require_relative '../lib/api'
+require_relative '../../lib/aus_post/api'
 
 class NoOptionalAttrsConstSet; REQUIRED_ATTRS = []; end
 class NoRequiredAttrsConstSet; OPTIONAL_ATTRS = []; end
 class TestClass; REQUIRED_ATTRS = []; OPTIONAL_ATTRS = []; end
 
-describe API do
+describe AusPost::API do
   describe "Implementing an API class" do
     it 'should define a REQUIRED_ATTRS const' do
       expect {
-        NoRequiredAttrsConstSet.new.class.send(:include, API)
-      }.to raise_error(API::ImplementationError)
+        NoRequiredAttrsConstSet.new.class.send(:include, AusPost::API)
+      }.to raise_error(AusPost::API::ImplementationError)
     end
 
     it 'should define a OPTIONAL_ATTRS const' do
       expect {
-        NoOptionalAttrsConstSet.new.class.send(:include, API)
-      }.to raise_error(API::ImplementationError)
+        NoOptionalAttrsConstSet.new.class.send(:include, AusPost::API)
+      }.to raise_error(AusPost::API::ImplementationError)
     end
   end
 
   describe "Configuring the API module" do
-    subject { TestClass.include(API) }
+    subject { TestClass.include(AusPost::API) }
 
     let(:valid_test_config) {
-      { test: true, format: API::VALID_FORMATS.sample, auth_key: '123' }
+      { test: true, format: AusPost::API::VALID_FORMATS.sample, auth_key: '123' }
     }
 
     describe "Setting an Auth Key" do
@@ -44,7 +44,7 @@ describe API do
           expect {
             subject.new({}, valid_test_config.merge(test: false))
           }.to raise_error(
-            API::NoAuthKeyProvidedError
+            AusPost::API::NoAuthKeyProvidedError
           )
         end
       end
@@ -56,7 +56,7 @@ describe API do
           valid_test_config.delete(:format)
 
           expect { subject.new({}, valid_test_config) }.to raise_error(
-            API::NoFormatProvidedError
+            AusPost::API::NoFormatProvidedError
           )
         end
       end
@@ -66,7 +66,7 @@ describe API do
           expect {
             subject.new({}, valid_test_config.merge(format: 'not valid'))
           }.to raise_error(
-            API::InvalidFormatError
+            AusPost::API::InvalidFormatError
           )
         end
       end

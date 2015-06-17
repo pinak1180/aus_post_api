@@ -11,39 +11,5 @@ class AusPost
     @config = config
   end
 
-  def domestic_postcode_search(params)
-    Domestic::Postcode::Search.new(params, @config).execute
-  end
-
-  def country(params)
-    Country.new(params, @config).execute
-  end
-
-  def domestic_letter_thickness(params)
-    Domestic::Letter::Thickness.new(params, @config).execute
-  end
-
-  def domestic_letter_weight(params)
-    Domestic::Letter::Weight.new(params, @config).execute
-  end
-
-  def domestic_letter_size(params)
-    Domestic::Letter::Size.new(params, @config).execute
-  end
-
-  def postage_parcel_domestic_service(params)
-    Postage::Parcel::Domestic::Service.new(params, @config).execute
-  end
-
-  def postage_parcel_domestic_calculate(params)
-    Postage::Parcel::Domestic::Calculate.new(params, @config).execute
-  end
-
-  def postage_parcel_international_service(params)
-    Postage::Parcel::International::Service.new(params, @config).execute
-  end
-
-  def postage_parcel_international_calculate(params)
-    Postage::Parcel::International::Calculate.new(params, @config).execute
-  end
+  include AusPost::PAC
 end

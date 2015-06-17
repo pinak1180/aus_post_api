@@ -17,7 +17,7 @@ RSpec.shared_examples 'an api' do
         it "should raise a required argument error if #{attr} is not given" do
           attributes.delete(attr)
           expect { subject.new(attributes, json_config) }.to raise_error(
-            API::RequiredArgumentError
+            AusPost::API::RequiredArgumentError
           )
         end
       end

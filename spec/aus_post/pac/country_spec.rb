@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Country do
+describe AusPost::PAC::Country do
   let(:required_attributes) { {} }
   let(:optional_attributes) { {} }
 

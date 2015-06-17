@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Postage::Parcel::Domestic::Service do
+describe AusPost::PAC::PostageParcelDomesticService do
   let(:required_attributes) do
     {
       from_postcode: '2000',

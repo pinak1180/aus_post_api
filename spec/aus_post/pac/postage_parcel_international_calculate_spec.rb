@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Postage::Parcel::International::Calculate do
+describe AusPost::PAC::PostageParcelInternationalCalculate do
   let(:required_attributes) do
     {
       country_code:  'NZ',

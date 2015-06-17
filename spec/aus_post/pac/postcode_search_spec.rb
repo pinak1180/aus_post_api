@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Domestic::Postcode::Search do
+describe AusPost::PAC::DomesticPostcodeSearch do
   let(:required_attributes) do
     {
       q: 'Melbourne'
