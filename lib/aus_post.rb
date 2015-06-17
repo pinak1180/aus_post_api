@@ -4,8 +4,6 @@ Dir[(File.dirname(__dir__)) + "/lib/**/*.rb"].each { |f| require f }
 # that must specify an valid auth key, and request format. Setting the test key
 # to true in the config hash will ignore any supplied auth_key and use the test
 # endpoint.
-#
-# The method interface serves as documentation for the implemented endpoints.
 class AusPost
   def initialize(config)
     @config = config

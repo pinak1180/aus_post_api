@@ -2,9 +2,8 @@ require_relative './uri_handler'
 
 # The API module sets the parameters for an api call and constructs the uri.
 #
-# Any class that includes the module must specify two constants:
-# REQUIRED_ATTRS & OPTIONAL_ATTRS
-
+# Any class that includes the module must define a api_uri and specify two
+# constants: REQUIRED_ATTRS & OPTIONAL_ATTRS
 class AusPost
   module API
     LIVE_URI      = 'https://auspost.com.au/api'
