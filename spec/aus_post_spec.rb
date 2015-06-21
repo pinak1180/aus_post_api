@@ -15,49 +15,57 @@ RSpec.shared_examples_for "an api call" do |wrapped_api_class|
 end
 
 def convert_class_to_method(klass)
-  klass
+  # remove the AusPost prefix
+  klass = klass.to_s.gsub(/AusPost::/, '')
+
+  # convert the first module in the namespace. In some cases it is acronym and
+  # doesn't conform to the conversion steps below
+  method_prefix = klass.match(/.*::/)[0].gsub(/::/, '').downcase
+
+  # remove the first module in the name space, convert camel case to
+  # underscores, then add the method prefix back
+  method_prefix + "_" + klass
     .to_s
-    .gsub(/AusPost::PAC::/, '')
+    .gsub(/.*::/, '')
     .split(/(?=[A-Z])/)
     .map(&:downcase)
     .join('_')
-    .to_sym
 end
 
 describe AusPost do
-  describe "#domestic_postcode_search" do
+  describe "#pac_domestic_postcode_search" do
     it_behaves_like 'an api call', AusPost::PAC::DomesticPostcodeSearch
   end
 
-  describe "#country" do
+  describe "#pac_country" do
     it_behaves_like 'an api call', AusPost::PAC::Country
   end
 
-  describe "#domestic_letter_thickness" do
+  describe "#pac_domestic_letter_thickness" do
     it_behaves_like 'an api call', AusPost::PAC::DomesticLetterThickness
   end
 
-  describe "#domestic_letter_weight" do
+  describe "#pac_domestic_letter_weight" do
     it_behaves_like 'an api call', AusPost::PAC::DomesticLetterWeight
   end
 
-  describe "#domestic_letter_size" do
+  describe "#pac_domestic_letter_size" do
     it_behaves_like 'an api call', AusPost::PAC::DomesticLetterSize
   end
 
-  describe "#postage_parcel_domestic_service" do
+  describe "#pac_postage_parcel_domestic_service" do
     it_behaves_like 'an api call', AusPost::PAC::PostageParcelDomesticService
   end
 
-  describe "#postage_parcel_international_service" do
+  describe "#pac_postage_parcel_international_service" do
     it_behaves_like 'an api call', AusPost::PAC::PostageParcelInternationalService
   end
 
-  describe "#postage_parcel_domestic_calculate" do
+  describe "#pac_postage_parcel_domestic_calculate" do
     it_behaves_like 'an api call', AusPost::PAC::PostageParcelDomesticCalculate
   end
 
-  describe "#postage_parcel_international_calculate" do
+  describe "#pac_postage_parcel_international_calculate" do
     it_behaves_like 'an api call', AusPost::PAC::PostageParcelInternationalCalculate
   end
 end
