@@ -53,8 +53,36 @@ describe AusPost do
     it_behaves_like 'an api call', AusPost::PAC::DomesticLetterSize
   end
 
+  describe "#pac_international_letter_weight" do
+    it_behaves_like 'an api call', AusPost::PAC::InternationalLetterWeight
+  end
+
+  describe "#pac_international_parcel_weight" do
+    it_behaves_like 'an api call', AusPost::PAC::InternationalParcelWeight
+  end
+
+  describe "#pac_domestic_parcel_weight" do
+    it_behaves_like 'an api call', AusPost::PAC::DomesticParcelWeight
+  end
+
+  describe "#pac_domestic_parcel_type" do
+    it_behaves_like 'an api call', AusPost::PAC::DomesticParcelType
+  end
+
+  describe "#pac_domestic_parcel_size" do
+    it_behaves_like 'an api call', AusPost::PAC::DomesticParcelSize
+  end
+
+  describe "#pac_postage_letter_domestic_service" do
+    it_behaves_like 'an api call', AusPost::PAC::PostageLetterDomesticService
+  end
+
   describe "#pac_postage_parcel_domestic_service" do
     it_behaves_like 'an api call', AusPost::PAC::PostageParcelDomesticService
+  end
+
+  describe "#pac_postage_letter_international_service" do
+    it_behaves_like 'an api call', AusPost::PAC::PostageLetterInternationalService
   end
 
   describe "#pac_postage_parcel_international_service" do
@@ -67,5 +95,13 @@ describe AusPost do
 
   describe "#pac_postage_parcel_international_calculate" do
     it_behaves_like 'an api call', AusPost::PAC::PostageParcelInternationalCalculate
+  end
+
+  describe "#pac_postage_letter_domestic_calculate" do
+    it_behaves_like 'an api call', AusPost::PAC::PostageLetterDomesticCalculate
+  end
+
+  describe "#pac_postage_letter_international_calculate" do
+    it_behaves_like 'an api call', AusPost::PAC::PostageLetterInternationalCalculate
   end
 end
