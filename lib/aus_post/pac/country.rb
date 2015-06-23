@@ -1,10 +1,7 @@
 class AusPost
   module PAC
-    class Country
-      REQUIRED_ATTRS = []
-      OPTIONAL_ATTRS = []
-
-      include AusPost::API
+    class Country < AusPost::API
+      include AusPost::PAC::Base
 
       def api_uri
         "postage/country"

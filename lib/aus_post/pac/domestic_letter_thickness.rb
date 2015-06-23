@@ -1,10 +1,7 @@
 class AusPost
   module PAC
-    class DomesticLetterThickness
-      REQUIRED_ATTRS = []
-      OPTIONAL_ATTRS = []
-
-      include AusPost::API
+    class DomesticLetterThickness < AusPost::API
+      include AusPost::PAC::Base
 
       def api_uri
         "postage/letter/domestic/thickness"

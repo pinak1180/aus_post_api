@@ -14,16 +14,16 @@ def config
   # This uses a live endpoint. The key used is not used in any production
   # environments. The test endpoint is broken...
   {
-    test: false,
-    auth_key: 'f9c917c2-33bf-468b-824a-6739702505f9'
+    TEST: false,
+    PAC_AUTH_KEY: 'f9c917c2-33bf-468b-824a-6739702505f9'
   }
 end
 
 def json_config
-  config.merge(format: 'json')
+  config.merge(FORMAT: 'json')
 end
 
 def xml_config
-  config.merge(format: 'xml')
+  config.merge(FORMAT: 'xml')
 end
 

@@ -1,10 +1,10 @@
 class AusPost
   module PAC
-    class DomesticPostcodeSearch
-      REQUIRED_ATTRS = [:q]
-      OPTIONAL_ATTRS = [:state, :excludepostboxflag]
+    class DomesticPostcodeSearch < AusPost::API
+      include AusPost::PAC::Base
 
-      include AusPost::API
+      required_attributes :q
+      optional_attributes :state, :excludepostboxflag
 
       def api_uri
         "postcode/search"

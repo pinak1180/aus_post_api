@@ -1,10 +1,7 @@
 class AusPost
   module PAC
-    class DomesticLetterWeight
-      REQUIRED_ATTRS = []
-      OPTIONAL_ATTRS = []
-
-      include AusPost::API
+    class DomesticLetterWeight < AusPost::API
+      include AusPost::PAC::Base
 
       def api_uri
         "postage/letter/domestic/weight"

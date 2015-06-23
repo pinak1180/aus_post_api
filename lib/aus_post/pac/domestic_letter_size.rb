@@ -1,10 +1,7 @@
 class AusPost
   module PAC
-    class DomesticLetterSize
-      REQUIRED_ATTRS = []
-      OPTIONAL_ATTRS = []
-
-      include AusPost::API
+    class DomesticLetterSize < AusPost::API
+      include AusPost::PAC::Base
 
       def api_uri
         "postage/letter/domestic/size"

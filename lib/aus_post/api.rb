@@ -1,30 +1,24 @@
-require_relative './uri_handler'
-
-# The API module sets the parameters for an api call and constructs the uri.
+# The API class is an abstract class that sets attributes and handles the
+# execution of API calls.
 #
-# Any class that includes the module must define a api_uri and specify two
-# constants: REQUIRED_ATTRS & OPTIONAL_ATTRS
+# It requires two instance methods to be defined.
+#    * `uri` - returns a valid uri string that represents the full api path
+#    * `headers` - returns a hash of key value pairs for the request
+#
+# The Attributes module is included in any subclass. It adds class level methods
+# for specifying the attributes of the API call.
+#    * `required_attributes`
+#    * `optional_attributes`
 class AusPost
-  module API
-    LIVE_URI      = 'https://auspost.com.au/api'
-    VALID_FORMATS = ['json', 'xml']
-    TEST_URI      = 'https://test.npe.auspost.com.au'
-    TEST_AUTH_KEY = '28744ed5982391881611cca6cf5c240'
-
-    def self.included(base)
-      if !defined?(base::REQUIRED_ATTRS) || !defined?(base::OPTIONAL_ATTRS)
-        raise ImplementationError
-      end
-
-      attr_accessor *(base::REQUIRED_ATTRS + base::OPTIONAL_ATTRS)
+  class API
+    def self.inherited(subclass)
+      subclass.include(AusPost::API::Attributes)
     end
 
     def initialize(attributes, config, uri_handler = AusPost::UriHandler)
       @config      = config
       @attributes  = attributes
       @uri_handler = uri_handler
-
-      validate_config
 
       set_attributes
     end
@@ -35,52 +29,30 @@ class AusPost
 
     private
 
-    def validate_config
-      if @config[:auth_key].nil? && !@config[:test]
-        raise NoAuthKeyProvidedError
-      end
+    def uri
+      raise ImplementationError.new("uri")
+    end
 
-      if @config[:format].nil?
-        raise NoFormatProvidedError
-      else
-        if !self.class::VALID_FORMATS.include?@config[:format]
-          raise InvalidFormatError
-        end
-      end
+    def headers
+      raise ImplementationError.new("headers")
     end
 
     def set_attributes
       required_param = -> (attr) { raise RequiredArgumentError.new(attr) }
 
-      self.class::REQUIRED_ATTRS.each do |attr|
-        self.send("#{attr}=", @attributes.fetch(attr, &required_param))
+      if defined?(required_attributes)
+        required_attributes.each do |attr|
+          self.send("#{attr}=", @attributes.fetch(attr, &required_param))
+        end
       end
 
-      self.class::OPTIONAL_ATTRS.each do |attr|
-        self.send("#{attr}=", @attributes.fetch(attr)) if @attributes.has_key?(attr)
+      if defined?(optional_attributes)
+        optional_attributes.each do |attr|
+          if @attributes.has_key?(attr)
+            self.send("#{attr}=", @attributes.fetch(attr))
+          end
+        end
       end
-    end
-
-    def uri
-      "#{base_uri}/#{api_uri}.#{@config[:format]}?#{params}"
-    end
-
-    def base_uri
-      @config[:test] ? self.class::TEST_URI : self.class::LIVE_URI
-    end
-
-    def headers
-      { "AUTH-KEY" => @config[:test] ? self.class::TEST_AUTH_KEY : @config[:auth_key] }
-    end
-
-    def api_uri
-      raise ImplementationError
-    end
-
-    def params
-      [].tap { |result|
-        @attributes.keys.each { |attr| result << "#{attr}=#{self.send(attr)}" }
-      }.join('&')
     end
 
     class RequiredArgumentError < StandardError
@@ -90,22 +62,9 @@ class AusPost
     end
 
     class ImplementationError < StandardError
-      def initialize
-        super(
-          "There was a problem including the API module. Check the class" \
-          "comments for required conventions"
-        )
+      def initialize(method)
+        super("No #{method} implemented")
       end
     end
-
-    class NoAuthKeyProvidedError < StandardError; end
-
-    class InvalidFormatError < StandardError
-      def initialize
-        super("Accepted formats are: #{API::VALID_FORMATS.join(', ')}")
-      end
-    end
-
-    class NoFormatProvidedError < InvalidFormatError; end
   end
 end

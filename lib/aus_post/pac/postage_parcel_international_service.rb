@@ -1,10 +1,9 @@
 class AusPost
   module PAC
-    class PostageParcelInternationalService
-      REQUIRED_ATTRS = [:country_code, :weight]
-      OPTIONAL_ATTRS = []
+    class PostageParcelInternationalService < AusPost::API
+      include AusPost::PAC::Base
 
-      include AusPost::API
+      required_attributes :country_code, :weight
 
       def api_uri
         "postage/parcel/international/service"

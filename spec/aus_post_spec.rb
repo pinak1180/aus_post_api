@@ -3,8 +3,8 @@ require 'spec_helper'
 RSpec.shared_examples_for "an api call" do |wrapped_api_class|
   let(:api_instance) { instance_double(wrapped_api_class) }
   let(:api_method)   { convert_class_to_method(wrapped_api_class) }
-  let(:config)       { { test: true, format: AusPost::API::VALID_FORMATS.sample } }
-  let(:params)       { {} }
+  let(:params)       { { test: :param } }
+  let(:config)       { { test: :config } }
 
   it "should call execute on the appropriate api class" do
     expect(wrapped_api_class).to receive(:new).with(params, config) { api_instance }

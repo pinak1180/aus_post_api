@@ -1,12 +1,10 @@
 class AusPost
   module PAC
-    class PostageParcelDomesticService
-      REQUIRED_ATTRS = [
-        :from_postcode, :to_postcode, :length, :width, :height, :weight
-      ]
-      OPTIONAL_ATTRS = []
+    class PostageParcelDomesticService < AusPost::API
+      include AusPost::PAC::Base
 
-      include AusPost::API
+      required_attributes :from_postcode, :to_postcode, :length, :width, :height,
+        :weight
 
       def api_uri
         "postage/parcel/domestic/service"
