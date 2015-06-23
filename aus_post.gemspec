@@ -10,4 +10,5 @@ Gem::Specification.new do |gem|
   gem.name          = "aus_post"
   gem.require_paths = ["lib"]
   gem.version       = '1.0.0'
+  gem.license       = "MIT"
 end
