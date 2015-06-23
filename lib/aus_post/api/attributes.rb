@@ -8,7 +8,7 @@ class AusPost
     #       include Attributes
     #
     #       required_attributes :one, :two
-    #       optional_attributes three
+    #       optional_attributes :three
     #     end
     #
     # Additionally it adds two instance methods: `required_attributes` &
