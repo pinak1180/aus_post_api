@@ -11,9 +11,7 @@
 #    * `optional_attributes`
 class AusPost
   class API
-    def self.inherited(subclass)
-      subclass.include(AusPost::API::Attributes)
-    end
+    include AusPost::API::Attributes
 
     def initialize(attributes, config, uri_handler = AusPost::UriHandler)
       @config      = config

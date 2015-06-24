@@ -13,7 +13,7 @@ RSpec.shared_examples 'an api' do
 
   describe "Attributes" do
     context "required" do
-      (described_class.instance_variable_get(:@required_attributes) || [] ).each do |attr|
+      described_class.required_attributes.each do |attr|
         it "should raise a required argument error if #{attr} is not given" do
           attributes.delete(attr)
           expect { subject.new(attributes, json_config) }.to raise_error(
@@ -24,7 +24,7 @@ RSpec.shared_examples 'an api' do
     end
 
     context "optional" do
-      (described_class.instance_variable_get(:@optional_attributes) || []).each do |attr|
+      described_class.optional_attributes.each do |attr|
         it "should not raise a required argument error if #{attr} is not given" do
           optional_attributes.delete(attr)
           expect {

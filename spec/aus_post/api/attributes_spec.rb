@@ -1,37 +1,35 @@
 require_relative "../../../lib/aus_post/api/attributes"
 
-class AttributesTestClassOne
-end
-
-class AttributesTestClassTwo
-end
-
 describe "Including the attributes module on a class" do
-  it "should add the required_attributes and optional_attributes class methods" do
-    test = AttributesTestClassOne.new
+  it "should allow attributes to be specified using the required_attributes method" do
+    test = Class.new do
+      include AusPost::API::Attributes
 
-    expect(!!defined?(test.class.required_attributes)).to eql(false)
-    expect(!!defined?(test.class.optional_attributes)).to eql(false)
+      required_attributes :one, :two
+    end.new
 
-    test.class.include(AusPost::API::Attributes)
+    expect(test.required_attributes).to eql([:one, :two])
 
-    expect(!!defined?(test.class.required_attributes)).to eql(true)
+    test.one = 1
+    test.two = 2
+
+    expect(test.one).to eql(1)
+    expect(test.two).to eql(2)
   end
 
-  it "should add the required_attributes and optional_attributes instance methods" do
-    test = AttributesTestClassTwo.new
+  it "should allow attributes to be specified using the optional_attributes method" do
+    test = Class.new do
+      include AusPost::API::Attributes
 
-    expect(!!defined?(test.required_attributes)).to eql(false)
-    expect(!!defined?(test.optional_attributes)).to eql(false)
+      optional_attributes :one, :two
+    end.new
 
-    test.class.include(AusPost::API::Attributes)
-    test.class.send(:required_attributes, :one)
-    test.class.send(:optional_attributes, :two)
+    expect(test.optional_attributes).to eql([:one, :two])
 
-    expect(test.required_attributes).to eql([:one])
-    expect(test.optional_attributes).to eql([:two])
+    test.one = 1
+    test.two = 2
 
-    expect(test.respond_to?(:one)).to eql(true)
-    expect(test.respond_to?(:two)).to eql(true)
+    expect(test.one).to eql(1)
+    expect(test.two).to eql(2)
   end
 end

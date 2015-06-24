@@ -23,23 +23,31 @@ class AusPost
 
     module ClassMethods
       def required_attributes(*args)
-        @required_attributes = args
-        self.send(:attr_accessor, *args)
+        if args.empty?
+          @required_attributes || []
+        else
+          @required_attributes = args
+          self.send(:attr_accessor, *args)
+        end
       end
 
       def optional_attributes(*args)
-        @optional_attributes = args
-        self.send(:attr_accessor, *args)
+        if args.empty?
+          @optional_attributes || []
+        else
+          @optional_attributes = args
+          self.send(:attr_accessor, *args)
+        end
       end
     end
 
     module InstanceMethods
       def required_attributes
-        self.class.instance_variable_get(:@required_attributes) || []
+        self.class.required_attributes
       end
 
       def optional_attributes
-        self.class.instance_variable_get(:@optional_attributes) || []
+        self.class.optional_attributes
       end
     end
   end

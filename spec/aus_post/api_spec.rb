@@ -38,12 +38,4 @@ describe AusPost::API do
       end
     end
   end
-
-  describe "Subclassing the API class" do
-    it "should include the Attributes model" do
-      expect(Class.new(AusPost::API).included_modules).to(
-        include(AusPost::API::Attributes)
-      )
-    end
-  end
 end
