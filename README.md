@@ -142,3 +142,6 @@ pac_postage_letter_international_calculate
 Set the config `TEST: true` for use in testing environments. This will use the Australia Post testing endpoint, and ignore any api keys provided.
 
 *note: at the time of writing this the testing endpoint is unreliable. Consider getting additional api keys for testing purposes and not setting the TEST parameter in your tests*
+
+## Contributing
+Fork and PR!
