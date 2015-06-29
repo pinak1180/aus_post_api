@@ -1,7 +1,9 @@
 require 'vcr'
 require 'json'
+require 'require_all'
 
-Dir[(File.dirname(__dir__)) + "/lib/**/*.rb"].each { |f| require f }
+require_all 'lib'
+
 Dir[(File.dirname(__dir__)) + "/spec/shared_examples/**/*.rb"].each { |f| require f}
 
 VCR.configure do |config|
