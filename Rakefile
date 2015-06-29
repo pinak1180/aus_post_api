@@ -7,8 +7,8 @@ desc "Display all PAC endpoints with a list of required values"
 task :pac_docs do
   require_relative 'lib/aus_post'
 
-  AusPost::PAC.instance_methods.each do |method|
-    klass = "AusPost::PAC::#{method[4..-1].split("_").map(&:capitalize).join}"
+  AusPostAPI::PAC.instance_methods.each do |method|
+    klass = "AusPostAPI::PAC::#{method.split("_").map(&:capitalize).join}"
     required = Kernel.const_get(klass).required_attributes
     optional = Kernel.const_get(klass).optional_attributes
 
