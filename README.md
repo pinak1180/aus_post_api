@@ -1,4 +1,4 @@
-# AusPost
+# AusPostAPI
 
 The AusPostAPI gem is a wrapper around the Australia Post Developer API. Currently only the Postage Assesment Calculator (PAC) API is implemented.
 
