@@ -17,7 +17,17 @@ def config
   # environments. The test endpoint is broken...
   {
     TEST: false,
+    USERNAME: "fake",
+    PASSWORD: "fake",
     PAC_AUTH_KEY: 'f9c917c2-33bf-468b-824a-6739702505f9'
+  }
+end
+
+def dce_config
+  {
+    USERNAME: "fake",
+    PASSWORD: "fake",
+    FORMAT:   'json'
   }
 end
 
