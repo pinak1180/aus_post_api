@@ -1,6 +1,6 @@
 # AusPost
 
-The AusPost gem is a wrapper around the Australia Post Developer API. Currently only the Postage Assesment Calculator (PAC) API is implemented.
+The AusPostAPI gem is a wrapper around the Australia Post Developer API. Currently only the Postage Assesment Calculator (PAC) API is implemented.
 
 ## Documentation
 
@@ -13,19 +13,19 @@ Full and up to date documentation can be found at https://developers.auspost.com
 ### Ruby
 
 ```ruby
-AusPost.new(config).some_aus_post_endpoint(params)
+AusPostAPI::PAC.new(config).endpoint(params)
 ```
 
 ### Rails
 
 ```ruby
-# config/initializers/aus_post.rb
+# config/initializers/aus_post_api.rb
 
-$aus_post = AusPost.new(config)
+$aus_post_api = AusPost.new(config)
 
 # app/some_file.rb
 
-$aus_post.some_aus_post_endpoint(params)
+$aus_post_api.endpoint(params)
 ```
 
 ## Configuration
@@ -43,39 +43,39 @@ The gem requires a `FORMAT` of either `'json'` or `'xml'`, and the `PAC_AUTH_KEY
 There are no validations on any parameters. Consult the Australia Post documentation for what units and limitations apply.
 
 ```
-pac_domestic_postcode_search
+domestic_postcode_search
   Required Attributes:
     - q
   Optional Attributes:
     - state
     - excludepostboxflag
 
-pac_country
+country
 
-pac_domestic_letter_thickness
+domestic_letter_thickness
 
-pac_domestic_letter_weight
+domestic_letter_weight
 
-pac_domestic_letter_size
+domestic_letter_size
 
-pac_international_letter_weight
+international_letter_weight
 
-pac_international_parcel_weight
+international_parcel_weight
 
-pac_domestic_parcel_weight
+domestic_parcel_weight
 
-pac_domestic_parcel_type
+domestic_parcel_type
 
-pac_domestic_parcel_size
+domestic_parcel_size
 
-pac_postage_letter_domestic_service
+postage_letter_domestic_service
   Required Attributes:
     - length
     - width
     - thickness
     - weight
 
-pac_postage_parcel_domestic_service
+postage_parcel_domestic_service
   Required Attributes:
     - from_postcode
     - to_postcode
@@ -84,17 +84,17 @@ pac_postage_parcel_domestic_service
     - height
     - weight
 
-pac_postage_letter_international_service
+postage_letter_international_service
   Required Attributes:
     - country_code
     - weight
 
-pac_postage_parcel_international_service
+postage_parcel_international_service
   Required Attributes:
     - country_code
     - weight
 
-pac_postage_parcel_domestic_calculate
+postage_parcel_domestic_calculate
   Required Attributes:
     - from_postcode
     - to_postcode
@@ -108,7 +108,7 @@ pac_postage_parcel_domestic_calculate
     - suboption_code
     - extra_cover
 
-pac_postage_parcel_international_calculate
+postage_parcel_international_calculate
   Required Attributes:
     - country_code
     - weight
@@ -118,7 +118,7 @@ pac_postage_parcel_international_calculate
     - suboption_code
     - extra_cover
 
-pac_postage_letter_domestic_calculate
+postage_letter_domestic_calculate
   Required Attributes:
     - service_code
     - weight
@@ -127,7 +127,7 @@ pac_postage_letter_domestic_calculate
     - suboption_code
     - extra_cover
 
-pac_postage_letter_international_calculate
+postage_letter_international_calculate
   Required Attributes:
     - country_code
     - service_code

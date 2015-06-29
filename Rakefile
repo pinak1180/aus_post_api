@@ -5,28 +5,28 @@ end
 
 desc "Display all PAC endpoints with a list of required values"
 task :pac_docs do
-  require_relative 'lib/aus_post'
+  require_relative 'lib/aus_post_api'
 
-  AusPostAPI::PAC.instance_methods.each do |method|
-    klass = "AusPostAPI::PAC::#{method.split("_").map(&:capitalize).join}"
-    required = Kernel.const_get(klass).required_attributes
-    optional = Kernel.const_get(klass).optional_attributes
 
-    docs = ""
+  docs = ""
+  (AusPostAPI::PAC.instance_methods - Object.instance_methods).each do |method|
+      klass = "AusPostAPI::PAC::#{method.to_s.split("_").map(&:capitalize).join}"
+      required = Kernel.const_get(klass).required_attributes
+      optional = Kernel.const_get(klass).optional_attributes
 
-    docs << method.to_s
-    docs << "\n"
+      docs << method.to_s
+      docs << "\n"
 
-    if !required.empty?
-      docs << "  Required Attributes:\n"
-      required.each { |attr| docs << "    - #{attr}\n"}
-    end
-    if !optional.empty?
-      docs << "  Optional Attributes:\n"
-      optional.each { |attr| docs << "    - #{attr}\n"}
-    end
-    docs << "\n"
-
-    puts docs
+      if !required.empty?
+        docs << "  Required Attributes:\n"
+        required.each { |attr| docs << "    - #{attr}\n"}
+      end
+      if !optional.empty?
+        docs << "  Optional Attributes:\n"
+        optional.each { |attr| docs << "    - #{attr}\n"}
+      end
+      docs << "\n"
   end
+
+  puts docs.chomp!
 end
