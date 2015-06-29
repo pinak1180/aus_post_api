@@ -21,7 +21,7 @@ AusPostAPI::PAC.new(config).endpoint(params)
 ```ruby
 # config/initializers/aus_post_api.rb
 
-$aus_post_api = AusPost.new(config)
+$aus_post_api = AusPostAPI::PAC.new(config)
 
 # app/some_file.rb
 
