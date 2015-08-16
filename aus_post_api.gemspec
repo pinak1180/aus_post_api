@@ -3,7 +3,7 @@ Gem::Specification.new do |gem|
   gem.email         = ["jared.shay@gmail.com"]
   gem.description   = %q{Wrapper for Australia Post's developer API}
   gem.summary       = %q{Wrapper for Australia Post's developer API}
-  gem.homepage      = "https://github.com/jaredshay/aus_post"
+  gem.homepage      = "https://github.com/jaredshay/aus_post_api"
 
   gem.files         = `git ls-files`.split("\n")
   gem.test_files    = `git ls-files -- spec/*`.split("\n")
