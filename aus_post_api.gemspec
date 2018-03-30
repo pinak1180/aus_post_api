@@ -11,4 +11,5 @@ Gem::Specification.new do |gem|
   gem.require_paths = ["lib"]
   gem.version       = '1.0.0'
   gem.license       = "MIT"
+  gem.add_dependency "require_all",  ">= 2.0"
 end
